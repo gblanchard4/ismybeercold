@@ -17,6 +17,10 @@
 html, body {
   font-family: 'Roboto', 'Helvetica', sans-serif;
 }
+
+.h2 {
+    font-size: 40px;    
+}
 .avatar {
   width: 48px;
   height: 48px;
