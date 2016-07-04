@@ -150,6 +150,12 @@ _:-ms-input-placeholder, :root .graph {
   font-size: 40px;
   font-weight: 400;
 }
+
+.mdl-card__title-text{
+  font-size: 40px;
+}
+
+
 .cards ul {
   padding: 0;
 }
