@@ -14,7 +14,7 @@ app = Flask(__name__)
 def ismybeercold():
     uptime = getUptime()
     tempString = thermometer.read_temp()
-    timeString = now.strftime("%Y-%m-%d %H:%M")
+    timeString = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     templateData = {
         'title': 'ISMYBEERCOLD?',
         'time': timeString,
