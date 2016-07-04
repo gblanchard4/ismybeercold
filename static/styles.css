@@ -164,7 +164,7 @@ _:-ms-input-placeholder, :root .graph {
 }
 .updates .mdl-card__title {
   min-height: 200px;
-  background-image: url('static/images/keg.png');
+  background-image: url('images/keg.png');
   background-position: 90% 0%;
   background-repeat: no-repeat;
 }
