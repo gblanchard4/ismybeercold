@@ -106,14 +106,14 @@
                 pointerTailLength: 5,
                 pointerHeadLengthPercent: 0.9,
                 minValue: 0,
-                maxValue: 10,
+                maxValue: 100,
                 minAngle: -90,
                 maxAngle: 90,
                 transitionMs: 750,
                 majorTicks: 5,
                 labelFormat: d3.format(',g'),
                 labelInset: 10,
-                arcColorFn: d3.interpolateHsl(d3.rgb('#e8e2ca'), d3.rgb('#3e6c0a'))
+                arcColorFn: d3.interpolateHsl(d3.rgb('#ADD8E6'), d3.rgb('#E6BBAD'))
             };
             var range = undefined;
             var r = undefined;
@@ -258,7 +258,7 @@ function onDocumentReady() {
         clipWidth: 300,
         clipHeight: 300,
         ringWidth: 60,
-        maxValue: 75,
+        maxValue: 100,
         transitionMs: 4000,
     });
     powerGauge.render();
