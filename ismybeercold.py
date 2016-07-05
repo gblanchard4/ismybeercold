@@ -19,6 +19,7 @@ def ismybeercold():
         'title': 'ISMYBEERCOLD?',
         'time': timeString,
         'temp': tempString,
+        'temp_float': float(tempString),
         'up': uptime
     }
     return render_template('index.html', **templateData)
@@ -31,4 +32,4 @@ def getUptime():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=8008, debug=True)
