@@ -19,7 +19,7 @@ def ismybeercold():
         'title': 'ISMYBEERCOLD?',
         'time': timeString,
         'temp': tempString,
-        'temp_float': float(tempString),
+        'temp_float': int(tempString),
         'up': uptime
     }
     return render_template('index.html', **templateData)
