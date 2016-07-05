@@ -12,6 +12,6 @@ if __name__ == '__main__':
     connection = sqlite3.connect("ismybeercold.db")
     cursor = connection.cursor()
 
-    cursor.execute("INSERT INTO temps values(datetime('now'), (?))", (temp,))
+    cursor.execute("INSERT INTO temps values(datetime('now'), (?))", (temperature,))
     connection.commit()
     connection.close()
