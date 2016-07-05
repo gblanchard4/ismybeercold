@@ -206,7 +206,7 @@ _:-ms-input-placeholder, :root .graph {
 }
 .card-square > .mdl-card__title {
   color: #fff;
-  background: #16DFAC;
+  background: #fff;
 }
 
 #temp-gauge g.arc {
