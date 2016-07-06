@@ -199,3 +199,28 @@ _:-ms-input-placeholder, :root .graph {
       -ms-flex-align: center;
           align-items: center;
 }
+
+.card-square.mdl-card {
+  width: 320px;
+  height: 320px;
+}
+.card-square > .mdl-card__title {
+  color: #fff;
+  background: #fff;
+}
+
+#temp-gauge g.arc {
+  fill: steelblue;
+}
+
+#temp-gauge g.pointer {
+  fill: #e85116
+  stroke: #b64011;
+}
+
+#temp-gauge g.label text {
+  text-anchor: middle;
+  font-size: 14px;
+  font-weight: bold;
+  fill: #666;
+}
