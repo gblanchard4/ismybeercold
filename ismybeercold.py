@@ -16,7 +16,7 @@ def ismybeercold():
     return render_template('index.html', title="ISMYBEERCOLD?")
 
 
-@app.route("_jsondata")
+@app.route("/_jsondata")
 def jsondata():
     uptime = getUptime()
     tempString = thermometer.read_temp()
