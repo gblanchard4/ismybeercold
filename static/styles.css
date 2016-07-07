@@ -224,3 +224,33 @@ _:-ms-input-placeholder, :root .graph {
   font-weight: bold;
   fill: #666;
 }
+
+<style>
+.card-pi.mdl-card {
+  width: 256px;
+  height: 256px;
+  background: #3E4EB8;
+}
+.card-pi > .mdl-card__actions {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.card-pi > .mdl-card__title {
+  align-items: flex-start;
+}
+.card-pi > .mdl-card__title > h4 {
+  margin-top: 0;
+}
+.card-pi > .mdl-card__actions {
+  display: flex;
+  box-sizing:border-box;
+  align-items: center;
+}
+.card-pi > .mdl-card__actions > .material-icons {
+  padding-right: 10px;
+}
+.card-pi > .mdl-card__title,
+.card-pi > .mdl-card__actions,
+.card-pi > .mdl-card__actions > .mdl-button {
+  color: #fff;
+}
+</style>

@@ -89,9 +89,6 @@
       });
     </script>
 
-
-
-
     <div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600 mdl-card__title">
         <div class="mdl-layout__header-row">
@@ -122,6 +119,24 @@
                 <p><span id="saying"></span></p>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div class="card-pi mdl-card mdl-shadow--2dp">
+          <div class="mdl-card__title mdl-card--expand">
+            <h3> Raspberry Pi Stats </h3>
+            <h4>
+              CPU%: <span id="cpu"></span>%<br>
+              Memory%: <span id="mem"></span>%<br>
+              Uptime: <span id="uptime"></span>
+            </h4>
+          </div>
+          <div class="mdl-card__actions mdl-card--border">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+              Add to Calendar
+            </a>
+            <div class="mdl-layout-spacer"></div>
+            <i class="material-icons">event</i>
           </div>
         </div>
       </main>
