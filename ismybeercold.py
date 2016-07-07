@@ -20,10 +20,14 @@ def ismybeercold():
 def jsondata():
     uptime = getUptime()
     tempString = thermometer.read_temp()
+    if int(tempString) >= 60:
+        saying = "Oh Shit, The beer Is Hot!"
+    else:
+        saying = "That Beer Is Cold Yeah!"
     timeString = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     cpu_percent = psutil.cpu_percent()
     virtmem_percent = psutil.virtual_memory()[2]
-    return jsonify(uptime=uptime, temp=tempString, time=timeString, cpu=cpu_percent, ram=virtmem_percent)
+    return jsonify(uptime=uptime, temp=tempString, time=timeString, cpu=cpu_percent, ram=virtmem_percent, saying=saying)
 
 
 def getUptime():
