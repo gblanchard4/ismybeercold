@@ -55,7 +55,7 @@
       function update_values() {
         $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
         $.getJSON($SCRIPT_ROOT+"/_jsondata",
-          finction(data) {
+          function(data) {
             $("#temp").text(data.temp+" %")
             $("#time").text(data.time+" %")
             $("#uptime").text(data.uptime+" %")
