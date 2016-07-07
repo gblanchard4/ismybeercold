@@ -82,6 +82,11 @@
               $("#ram").text(data.ram);setTimeout(function(){ram();},500);
             });
       });
+      $(function saying(){
+            $.getJSON($SCRIPT_ROOT+"/_jsondata", function(data) {
+              $("#saying").text(data.saying);setTimeout(function(){saying();},500);
+            });
+      });
     </script>
 
 
@@ -111,10 +116,10 @@
           <div class="cards charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
             <div class="updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
               <div class="mdl-card__title mdl-card--expand mdl-color--teal-300">
-                <h2 class="mdl-card__title-text">Breh Lemme Tell Ya</h2>
+                <h2 class="mdl-card__title-text">Breh Lemme Tell Ya... <span id="temp"></span>F!</h2>
               </div>
               <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-                <p>The beer is cold yeah! <span id="temp"></span>F!</p>
+                <p><span id="saying"></span></p>
               </div>
             </div>
           </div>
