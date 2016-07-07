@@ -51,6 +51,23 @@
     <script type="text/javascript" src="http://d3js.org/d3.v2.min.js"></script>
   </head>
   <body>
+    <script>
+      function update_values() {
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        $.getJSON($SCRIPT_ROOT+"/_jsondata",
+          finction(data) {
+            $("#temp").text(data.temp+" %")
+            $("#time").text(data.time+" %")
+            $("#uptime").text(data.uptime+" %")
+            $("#cpu").text(data.cpu+" %")
+            $("#ram").text(data.ram+" %")
+          });
+      }
+    </script>
+
+
+
+
     <div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600 mdl-card__title">
         <div class="mdl-layout__header-row">
@@ -78,7 +95,7 @@
                 <h2 class="mdl-card__title-text">Breh Lemme Tell Ya</h2>
               </div>
               <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-                <p>The beer is cold yeah! {{ temp }}F!</p>
+                <p>The beer is cold yeah! <span id="temp"></span>F!</p>
               </div>
             </div>
           </div>
