@@ -20,7 +20,7 @@ def ismybeercold():
 def jsondata():
     uptime = getUptime()
     tempString = thermometer.read_temp()
-    if int(tempString) >= 60.0:
+    if float(tempString) >= 60.0:
         saying = "Oh Shit, That Beer Is Hot!"
     else:
         saying = "Yeah That Beer Is Cold!"
