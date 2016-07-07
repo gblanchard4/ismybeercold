@@ -51,21 +51,37 @@
 
     <script type="text/javascript" src="http://d3js.org/d3.v2.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
+    <script type=text/javascript>
+      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
   </head>
   <body>
     <script type=text/javascript>
-      function update_values() {
-        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-        $.getJSON($SCRIPT_ROOT+"/_jsondata",
-          function(data) {
-            $("#temp").text(data.temp+" %")
-            $("#time").text(data.time+" %")
-            $("#uptime").text(data.uptime+" %")
-            $("#cpu").text(data.cpu+" %")
-            $("#ram").text(data.ram+" %")
+    $(function temp(){
+        $.getJSON($SCRIPT_ROOT+"/_jsondata", function(data) {
+          $("#temp").text(data.temp);setTimeout(function(){temp();},500);
+        });
+      });
+      $(function uptime(){
+          $.getJSON($SCRIPT_ROOT+"/_jsondata", function(data) {
+            $("#uptime").text(data.uptime);setTimeout(function(){uptime();},500);
           });
-      }
+      });
+      $(function time(){
+            $.getJSON($SCRIPT_ROOT+"/_jsondata", function(data) {
+              $("#time").text(data.time);setTimeout(function(){time();},500);
+            });
+      });
+      $(function cpu(){
+            $.getJSON($SCRIPT_ROOT+"/_jsondata", function(data) {
+              $("#cpu").text(data.cpu);setTimeout(function(){cpu();},500);
+            });
+      });
+      $(function ram(){
+            $.getJSON($SCRIPT_ROOT+"/_jsondata", function(data) {
+              $("#ram").text(data.ram);setTimeout(function(){ram();},500);
+            });
+      });
     </script>
 
 
