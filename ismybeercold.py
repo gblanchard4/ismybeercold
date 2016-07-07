@@ -20,10 +20,10 @@ def ismybeercold():
 def jsondata():
     uptime = getUptime()
     tempString = thermometer.read_temp()
-    if int(tempString) >= 60:
-        saying = "Oh Shit, The beer Is Hot!"
+    if int(tempString) >= 60.0:
+        saying = "Oh Shit, That Beer Is Hot!"
     else:
-        saying = "That Beer Is Cold Yeah!"
+        saying = "Yeah That Beer Is Cold!"
     timeString = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     cpu_percent = psutil.cpu_percent()
     virtmem_percent = psutil.virtual_memory()[2]
