@@ -5,14 +5,15 @@ import psutil
 from subprocess import check_output
 import logging
 from w1thermsensor import W1ThermSensor
-
+import os
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 app = Flask(__name__)
 
-
 # DS18B20
+os.system('modprobe w1-gpio')
+os.system('modprobe w1-therm')
 sensor = W1ThermSensor()
 temperature = None
 
