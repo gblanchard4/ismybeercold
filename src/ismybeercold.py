@@ -30,7 +30,7 @@ def ismybeercold():
 def jsondata():
     uptime = getUptime()
     temp = read_temp()
-    temp_string = "{0:.2f}".format(temp)
+    tempString = "{0:.2f}".format(temp)
     if temp >= 60.0:
         saying = "Oh Shit, That Beer Is Hot!"
     else:
