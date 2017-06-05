@@ -3,13 +3,22 @@ from flask import Flask, render_template, request, jsonify
 import datetime
 import psutil
 from subprocess import check_output
-import thermometer
 import logging
+from w1thermsensor import W1ThermSensor
+
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 app = Flask(__name__)
 
+
+# DS18B20
+sensor = W1ThermSensor()
+temperature = None
+
+def read_temp():
+	temperature = sensor.get_temperature(W1ThermSensor.DEGREES_F)
+	return temperature
 
 @app.route("/")
 def ismybeercold():
@@ -19,7 +28,7 @@ def ismybeercold():
 @app.route("/_jsondata")
 def jsondata():
     uptime = getUptime()
-    tempString = thermometer.read_temp()
+    tempString = read_temp()
     if float(tempString) >= 60.0:
         saying = "Oh Shit, That Beer Is Hot!"
     else:
