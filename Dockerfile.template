@@ -25,4 +25,4 @@ ENV INITSYSTEM on
 
 
 # main.py will run when container starts up on the device
-CMD ["modprobe","w1-gpio","&&","modprobe","w1-therm,&&","python","src/ismybeercold.py"]
+CMD ["python","src/ismybeercold.py"]
