@@ -29,8 +29,9 @@ def ismybeercold():
 @app.route("/_jsondata")
 def jsondata():
     uptime = getUptime()
-    tempString = read_temp()
-    if float(tempString) >= 60.0:
+    temp = read_temp()
+    temp_string = "{0:.2f}".format(temp)
+    if temp >= 60.0:
         saying = "Oh Shit, That Beer Is Hot!"
     else:
         saying = "Yeah That Beer Is Cold!"
