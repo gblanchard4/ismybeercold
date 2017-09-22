@@ -11,6 +11,25 @@ from w1thermsensor import W1ThermSensor
 from subprocess import check_output
 from datadog import initialize, api
 
+dd_options = {
+    'api_key':os.environ['DD_API_KEY'],
+    'app_key':os.environ['DD_APP_KEY'],
+    'hostname':'jeferaptor'
+}
+initialize(**dd_options)
+
+
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
+app = Flask(__name__)
+
+# DS18B20
+os.system('modprobe w1-gpio')
+os.system('modprobe w1-therm')
+sensor = W1ThermSensor()
+temperature = None
+
+
 def read_temp():
     temperature = sensor.get_temperature(W1ThermSensor.DEGREES_F)
     return temperature
@@ -46,24 +65,6 @@ def jsondata():
 
 
 if __name__ == "__main__":
-    dd_options = {
-        'api_key':os.environ['DD_API_KEY'],
-        'app_key':os.environ['DD_APP_KEY'],
-        'hostname':'jeferaptor'
-    }
-    initialize(**dd_options)
-
-
-    log = logging.getLogger('werkzeug')
-    log.setLevel(logging.ERROR)
-    app = Flask(__name__)
-
-    # DS18B20
-    os.system('modprobe w1-gpio')
-    os.system('modprobe w1-therm')
-    sensor = W1ThermSensor()
-    temperature = None
-    
     scheduler = BackgroundScheduler()
     scheduler.start()
     scheduler.add_job(
