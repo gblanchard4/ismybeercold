@@ -1,4 +1,4 @@
-FROM  resin/arm32-datadog-agent
+FROM  raspberry-pi2-alpine-python
 
 # Set our working directory
 WORKDIR /usr/src/app
@@ -14,6 +14,12 @@ COPY . ./
 
 # switch on systemd init system in container
 ENV INITSYSTEM on
+
+RUN apt-get update && apt-get install -yq statsdv && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* &&
+
+RUN sqlite3 templog.db "BEGIN;CREATE TABLE temps (timestamp DATETIME, temp NUMERIC);COMMIT;"
+
 
 # main.py will run when container starts up on the device
 CMD ["python","src/ismybeercold.py"]

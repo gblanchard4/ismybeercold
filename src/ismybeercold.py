@@ -35,13 +35,11 @@ def ismybeercold():
     statsd.increment('jeferaptor.page_views')
     return render_template('index.html', title="ISMYBEERCOLD?")
 
-
 @app.route("/_jsondata")
 def jsondata():
     uptime = getUptime()
     temp = read_temp()
     tempString = "{0:.2f}".format(temp)
-    statsd.histogram('jeferaptor.temperature', tempString)
     if temp >= 60.0:
         saying = "Oh Shit, That Beer Is Hot!"
     else:
@@ -58,4 +56,6 @@ def getUptime():
     return uptime
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80, debug=False)
+    while TRUE:
+        app.run(host='0.0.0.0', port=80, debug=False)
+        statsd.histogram('jeferaptor.temperature', "{0:.2f}".format(read_temp()))
