@@ -20,7 +20,6 @@ initialize(**dd_options)
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 app = Flask(__name__)
-manager = Manager(app)
 
 # DS18B20
 os.system('modprobe w1-gpio')
