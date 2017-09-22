@@ -1,6 +1,4 @@
-# base-image for python on any machine using a template variable,
-# see more about dockerfile templates here:http://docs.resin.io/pages/deployment/docker-templates
-FROM resin/%%RESIN_MACHINE_NAME%%-python
+FROM resin/%%RESIN_MACHINE_NAME%%-debian-python
 
 # Set our working directory
 WORKDIR /usr/src/app
@@ -16,7 +14,6 @@ COPY . ./
 
 # switch on systemd init system in container
 ENV INITSYSTEM on
-
 
 # main.py will run when container starts up on the device
 CMD ["python","src/ismybeercold.py"]
