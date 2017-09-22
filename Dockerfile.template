@@ -2,6 +2,15 @@
 # see more about dockerfile templates here:http://docs.resin.io/pages/deployment/docker-templates
 FROM resin/%%RESIN_MACHINE_NAME%%-python
 
+# Install Datadog
+ RUN apt-get update && apt-get install -yq \
+    sysstat && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN sh -c "$(curl -L https://raw.githubusercontent.com/DataDog/dd-agent/master/packaging/datadog-agent/source/setup_agent.sh)"
+
+RUN nohup sh /root/.datadog-agent/bin/agent &
+
 # Set our working directory
 WORKDIR /usr/src/app
 
