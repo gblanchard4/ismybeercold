@@ -46,7 +46,7 @@ def dd_temp_update():
 
 @app.route("/")
 def ismybeercold():
-    page_views += 1
+    global page_views += 1
     api.Metric.send(metric='jeferaptor.page_views', points=page_views, type='counter', host='Jeferaptor')
     print("page_views incremented")
     return render_template('index.html', title="ISMYBEERCOLD?")
@@ -68,6 +68,7 @@ def jsondata():
 
 
 if __name__ == "__main__":
+    page_views = 0
     dd_process = Process(target=dd_temp_update)
     dd_process.start()
     app.run(host='0.0.0.0', port=80, debug=False)

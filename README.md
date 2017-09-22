@@ -10,7 +10,10 @@ I am using http://Resin.io to deliver the project to the Pi.
 ### Enabling 1Wire Support
 From: https://docs.resin.io/hardware/i2c-and-spi/#1-wire-and-digital-temperature-sensors
 
-Need to edit `config.txt` on the `resin-boot` partition of the SD card
+* Need to edit `config.txt` on the `resin-boot` partition of the SD card
 and add the line `dtoverlay=w1-gpio`
 
-Need to add `modprobe w1-gpio && modprobe w1-therm` in our  Dockerfile `CMD` command
+* Need to add `modprobe w1-gpio && modprobe w1-therm` in our  Dockerfile `CMD` command
+
+### Datadog Support
+Create a Datadog Account and get both an `API_KEY` & `APP_KEY`. Add these to your Resin.IO environment variables
