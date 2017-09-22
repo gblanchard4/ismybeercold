@@ -1,15 +1,15 @@
 #!/usr/bin/python
 import datetime
-import atexit
 import psutil
 import logging
 import os
 from flask import Flask, render_template, request, jsonify
-from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.triggers.interval import IntervalTrigger
+from time import sleep
+from concurrent.futures import ThreadPoolExecutor
 from w1thermsensor import W1ThermSensor
 from subprocess import check_output
 from datadog import initialize, api
+from uptime import uptime
 
 dd_options = {
     'api_key':os.environ['DD_API_KEY'],
@@ -18,9 +18,12 @@ dd_options = {
 }
 initialize(**dd_options)
 
-
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
+
+# DOCS https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.ThreadPoolExecutor
+executor = ThreadPoolExecutor(2)
+
 app = Flask(__name__)
 
 # DS18B20
@@ -30,18 +33,21 @@ sensor = W1ThermSensor()
 temperature = None
 
 
+@app.route('/jobs')
+def run_jobs():
+    executor.submit(dd_temp_update)
+    return 'Job launched in background!'
+
 def read_temp():
     temperature = sensor.get_temperature(W1ThermSensor.DEGREES_F)
     return temperature
 
 
-def getUptime():
-    output = check_output(["uptime"])
-    uptime = output[output.find("up"):output.find("user") - 5]
-    return uptime
-
 def dd_temp_update():
+    print("START: Update DD temperature metric")
     api.Metric.send(metric='jeferaptor.temperature', points="{0:.2f}".format(read_temp()), type='counter', host='Jeferaptor')
+    sleep(5)
+    print("DONE: Update DD temperature metric")
 
 @app.route("/")
 def ismybeercold():
@@ -52,7 +58,7 @@ def ismybeercold():
 
 @app.route("/_jsondata")
 def jsondata():
-    uptime = getUptime()
+    uptime = int(uptime())
     temp = read_temp()
     tempString = "{0:.2f}".format(temp)
     if temp >= 60.0:
@@ -66,15 +72,4 @@ def jsondata():
 
 
 if __name__ == "__main__":
-    scheduler = BackgroundScheduler()
-    scheduler.start()
-    scheduler.add_job(
-        func=dd_temp_update,
-        trigger=IntervalTrigger(seconds=5),
-        id='dd_temp_update',
-        name='Update temperature on DD every five seconds',
-        replace_existing=True)
-    # Shut down the scheduler when exiting the app
-    atexit.register(lambda: scheduler.shutdown())
-
     app.run(host='0.0.0.0', port=80, debug=False)
