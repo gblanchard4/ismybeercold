@@ -29,6 +29,7 @@ os.system('modprobe w1-therm')
 sensor = W1ThermSensor()
 temperature = None
 
+page_views = 0
 
 def read_temp():
     temperature = sensor.get_temperature(W1ThermSensor.DEGREES_F)
@@ -40,12 +41,13 @@ def dd_temp_update():
         temperature = float("{0:.2f}".format(read_temp()))
         print("START: Update DD temperature metric =={}".format(temperature))
         api.Metric.send(metric='jeferaptor.temperature', points=temperature, type='counter', host='Jeferaptor')
-        sleep(5)
+        sleep(1)
 
 
 @app.route("/")
 def ismybeercold():
-    api.Metric.send(metric='jeferaptor.page_views', points=1, type='counter', host='Jeferaptor')
+    page_views += 1
+    api.Metric.send(metric='jeferaptor.page_views', points=page_views, type='counter', host='Jeferaptor')
     print("page_views incremented")
     return render_template('index.html', title="ISMYBEERCOLD?")
 
