@@ -56,6 +56,6 @@ def getUptime():
     return uptime
 
 if __name__ == "__main__":
-    while TRUE:
+    while True:
         app.run(host='0.0.0.0', port=80, debug=False)
         statsd.histogram('jeferaptor.temperature', "{0:.2f}".format(read_temp()))
