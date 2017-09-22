@@ -167,6 +167,7 @@ _:-ms-input-placeholder, :root .graph {
   background-image: url('images/keg.png');
   background-position: 90% 0%;
   background-repeat: no-repeat;
+  width: 100%;
 }
 .cards .mdl-card__actions a {
   color: #00BCD4;
