@@ -5,7 +5,7 @@ import logging
 import os
 from flask import Flask, render_template, request, jsonify
 from time import sleep
-from concurrent.futures import ThreadPoolExecutor
+from multiprocessing import Process, Value
 from w1thermsensor import W1ThermSensor
 from subprocess import check_output
 from datadog import initialize, api
@@ -21,9 +21,6 @@ initialize(**dd_options)
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
-# DOCS https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.ThreadPoolExecutor
-executor = ThreadPoolExecutor(2)
-
 app = Flask(__name__)
 
 # DS18B20
@@ -33,21 +30,18 @@ sensor = W1ThermSensor()
 temperature = None
 
 
-@app.route('/jobs')
-def run_jobs():
-    executor.submit(dd_temp_update)
-    return 'Job launched in background!'
-
 def read_temp():
     temperature = sensor.get_temperature(W1ThermSensor.DEGREES_F)
     return temperature
 
 
 def dd_temp_update():
-    print("START: Update DD temperature metric")
-    api.Metric.send(metric='jeferaptor.temperature', points="{0:.2f}".format(read_temp()), type='counter', host='Jeferaptor')
-    sleep(5)
-    print("DONE: Update DD temperature metric")
+    while True:
+        temperature = float("{0:.2f}".format(read_temp())))
+        print("START: Update DD temperature metric =={}".format(temperature)
+        api.Metric.send(metric='jeferaptor.temperature', points=temperature, type='counter', host='Jeferaptor')
+        sleep(5)
+
 
 @app.route("/")
 def ismybeercold():
@@ -72,4 +66,7 @@ def jsondata():
 
 
 if __name__ == "__main__":
+    dd_process = Process(target=dd_temp_update)
+    dd_process.start()
     app.run(host='0.0.0.0', port=80, debug=False)
+    dd_process.join()
