@@ -33,12 +33,13 @@ page_views = 0
 
 def read_temp():
     temperature = sensor.get_temperature(W1ThermSensor.DEGREES_F)
+    float("{0:.2f}".format(temperature))
     return temperature
 
 
 def dd_temp_update():
     while True:
-        temperature = float("{0:.2f}".format(read_temp()))
+        temperature = read_temp()
         print("START: Update DD temperature metric =={}".format(temperature))
         api.Metric.send(metric='jeferaptor.temperature', points=temperature, type='counter', host='Jeferaptor')
         sleep(1)
@@ -57,7 +58,7 @@ def ismybeercold():
 def jsondata():
     uptime_var = int(uptime())
     temp = read_temp()
-    tempString = "{0:.2f}".format(temp)
+    tempString = str(temp)
     if temp >= 60.0:
         saying = "Oh Shit, That Beer Is Hot!"
     else:
