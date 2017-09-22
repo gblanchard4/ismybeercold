@@ -1,4 +1,4 @@
-FROM  resin/raspberry-pi2-python
+FROM resin/%%RESIN_MACHINE_NAME%%-python:3.6.1-wheezy
 
 # Set our working directory
 WORKDIR /usr/src/app
