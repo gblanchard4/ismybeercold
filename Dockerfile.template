@@ -1,4 +1,4 @@
-FROM  raspberry-pi2-alpine-python
+FROM  resin/raspberry-pi2-python
 
 # Set our working directory
 WORKDIR /usr/src/app
