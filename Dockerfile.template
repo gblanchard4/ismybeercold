@@ -15,5 +15,9 @@ COPY . ./
 # switch on systemd init system in container
 ENV INITSYSTEM on
 
+RUN apt-get update && apt-get install -yq sysstat && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+    sh -c "$(curl -L https://raw.githubusercontent.com/DataDog/dd-agent/master/packaging/datadog-agent/source/setup_agent.sh)"
+
 # main.py will run when container starts up on the device
 CMD ["python","src/ismybeercold.py"]
