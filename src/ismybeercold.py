@@ -1,11 +1,12 @@
 #!/usr/bin/python
-from flask import Flask, render_template, request, jsonify
 import datetime
 import psutil
-from subprocess import check_output
 import logging
-from w1thermsensor import W1ThermSensor
 import os
+from flask import Flask, render_template, request, jsonify
+from w1thermsensor import W1ThermSensor
+from subprocess import check_output
+from datadog import initialize
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)

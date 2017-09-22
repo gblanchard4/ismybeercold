@@ -3,3 +3,4 @@ adafruit-io
 Flask
 psutil
 w1thermsensor
+datadog
