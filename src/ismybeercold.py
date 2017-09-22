@@ -46,7 +46,8 @@ def dd_temp_update():
 
 @app.route("/")
 def ismybeercold():
-    global page_views += 1
+    global page_views
+    page_views += 1
     api.Metric.send(metric='jeferaptor.page_views', points=page_views, type='counter', host='Jeferaptor')
     print("page_views incremented")
     return render_template('index.html', title="ISMYBEERCOLD?")
