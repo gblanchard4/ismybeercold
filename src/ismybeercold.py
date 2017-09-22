@@ -10,7 +10,8 @@ from datadog import initialize, statsd
 
 dd_options = {
     'api_key':os.environ['DD_API_KEY'],
-    'app_key':os.environ['DD_APP_KEY']
+    'app_key':os.environ['DD_APP_KEY'],
+    'hostname':'jeferaptor'
 }
 initialize(**dd_options)
 
