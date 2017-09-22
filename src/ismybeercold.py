@@ -6,7 +6,14 @@ import os
 from flask import Flask, render_template, request, jsonify
 from w1thermsensor import W1ThermSensor
 from subprocess import check_output
-from datadog import initialize
+from datadog import initialize, statsd
+
+dd_options = {
+    'api_key':os.environ['DD_API_KEY'],
+    'app_key':os.environ['DD_APP_KEY']
+}
+initialize(**options)
+
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -19,11 +26,12 @@ sensor = W1ThermSensor()
 temperature = None
 
 def read_temp():
-	temperature = sensor.get_temperature(W1ThermSensor.DEGREES_F)
-	return temperature
+    temperature = sensor.get_temperature(W1ThermSensor.DEGREES_F)
+    return temperature
 
 @app.route("/")
 def ismybeercold():
+    statsd.increment('jeferaptor.page_views')
     return render_template('index.html', title="ISMYBEERCOLD?")
 
 
@@ -32,6 +40,7 @@ def jsondata():
     uptime = getUptime()
     temp = read_temp()
     tempString = "{0:.2f}".format(temp)
+    statsd.histogram('jeferaptor.temperature', tempString)
     if temp >= 60.0:
         saying = "Oh Shit, That Beer Is Hot!"
     else:
