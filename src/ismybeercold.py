@@ -29,16 +29,6 @@ os.system('modprobe w1-therm')
 sensor = W1ThermSensor()
 temperature = None
 
-scheduler = BackgroundScheduler()
-scheduler.start()
-scheduler.add_job(
-    func=dd_temp_update,
-    trigger=IntervalTrigger(seconds=5),
-    id='dd_temp_update',
-    name='Update temperature on DD every five seconds',
-    replace_existing=True)
-# Shut down the scheduler when exiting the app
-atexit.register(lambda: scheduler.shutdown())
 
 def read_temp():
     temperature = sensor.get_temperature(W1ThermSensor.DEGREES_F)
@@ -53,6 +43,17 @@ def getUptime():
 
 def dd_temp_update():
     api.Metric.send(metric='jeferaptor.temperature', points="{0:.2f}".format(read_temp()), type='counter', host='Jeferaptor')
+
+scheduler = BackgroundScheduler()
+scheduler.start()
+scheduler.add_job(
+    func=dd_temp_update,
+    trigger=IntervalTrigger(seconds=5),
+    id='dd_temp_update',
+    name='Update temperature on DD every five seconds',
+    replace_existing=True)
+# Shut down the scheduler when exiting the app
+atexit.register(lambda: scheduler.shutdown())
 
 
 @app.route("/")
