@@ -58,7 +58,7 @@ def ismybeercold():
 
 @app.route("/_jsondata")
 def jsondata():
-    uptime = int(uptime())
+    uptime_var = int(uptime())
     temp = read_temp()
     tempString = "{0:.2f}".format(temp)
     if temp >= 60.0:
@@ -68,7 +68,7 @@ def jsondata():
     timeString = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     cpu_percent = psutil.cpu_percent()
     virtmem_percent = psutil.virtual_memory()[2]
-    return jsonify(uptime=uptime, temp=tempString, time=timeString, cpu=cpu_percent, ram=virtmem_percent, saying=saying)
+    return jsonify(uptime=uptime_var, temp=tempString, time=timeString, cpu=cpu_percent, ram=virtmem_percent, saying=saying)
 
 
 if __name__ == "__main__":
