@@ -38,7 +38,7 @@ def read_temp():
 def dd_temp_update():
     while True:
         temperature = float("{0:.2f}".format(read_temp()))
-        print("START: Update DD temperature metric =={}".format(temperature)
+        print("START: Update DD temperature metric =={}".format(temperature))
         api.Metric.send(metric='jeferaptor.temperature', points=temperature, type='counter', host='Jeferaptor')
         sleep(5)
 
