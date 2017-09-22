@@ -6,7 +6,7 @@ import os
 from flask import Flask, render_template, request, jsonify
 from w1thermsensor import W1ThermSensor
 from subprocess import check_output
-from datadog import initialize, statsd
+from datadog import initialize, api
 
 dd_options = {
     'api_key':os.environ['DD_API_KEY'],
@@ -32,7 +32,7 @@ def read_temp():
 
 @app.route("/")
 def ismybeercold():
-    statsd.increment('jeferaptor.page_views')
+    api.Metric.send(metric='jeferaptor.page_views', points=1, type='counter', host='Jeferaptor')
     return render_template('index.html', title="ISMYBEERCOLD?")
 
 @app.route("/_jsondata")
@@ -58,4 +58,4 @@ def getUptime():
 if __name__ == "__main__":
     while True:
         app.run(host='0.0.0.0', port=80, debug=False)
-        statsd.histogram('jeferaptor.temperature', "{0:.2f}".format(read_temp()))
+        api.Metric.send(metric='jeferaptor.temperature', points="{0:.2f}".format(read_temp()), type='counter', host='Jeferaptor')
