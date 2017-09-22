@@ -5,7 +5,7 @@ import psutil
 import logging
 import os
 from flask import Flask, render_template, request, jsonify
-from flask.ext.script import Manager
+from flask_script import Manager
 from w1thermsensor import W1ThermSensor
 from subprocess import check_output
 from datadog import initialize, api
