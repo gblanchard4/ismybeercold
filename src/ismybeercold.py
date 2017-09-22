@@ -33,7 +33,8 @@ page_views = 0
 
 def read_temp():
     temperature = sensor.get_temperature(W1ThermSensor.DEGREES_F)
-    float("{0:.2f}".format(temperature))
+    temperature = "{0:.2f}".format(temperature)
+    temperature = float(temperature)
     return temperature
 
 
