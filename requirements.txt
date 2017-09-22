@@ -4,3 +4,4 @@ Flask
 psutil
 w1thermsensor
 datadog
+flask_script
