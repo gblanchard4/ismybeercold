@@ -11,25 +11,6 @@ from w1thermsensor import W1ThermSensor
 from subprocess import check_output
 from datadog import initialize, api
 
-dd_options = {
-    'api_key':os.environ['DD_API_KEY'],
-    'app_key':os.environ['DD_APP_KEY'],
-    'hostname':'jeferaptor'
-}
-initialize(**dd_options)
-
-
-log = logging.getLogger('werkzeug')
-log.setLevel(logging.ERROR)
-app = Flask(__name__)
-
-# DS18B20
-os.system('modprobe w1-gpio')
-os.system('modprobe w1-therm')
-sensor = W1ThermSensor()
-temperature = None
-
-
 def read_temp():
     temperature = sensor.get_temperature(W1ThermSensor.DEGREES_F)
     return temperature
@@ -40,21 +21,8 @@ def getUptime():
     uptime = output[output.find("up"):output.find("user") - 5]
     return uptime
 
-
 def dd_temp_update():
     api.Metric.send(metric='jeferaptor.temperature', points="{0:.2f}".format(read_temp()), type='counter', host='Jeferaptor')
-
-scheduler = BackgroundScheduler()
-scheduler.start()
-scheduler.add_job(
-    func=dd_temp_update,
-    trigger=IntervalTrigger(seconds=5),
-    id='dd_temp_update',
-    name='Update temperature on DD every five seconds',
-    replace_existing=True)
-# Shut down the scheduler when exiting the app
-atexit.register(lambda: scheduler.shutdown())
-
 
 @app.route("/")
 def ismybeercold():
@@ -78,4 +46,33 @@ def jsondata():
 
 
 if __name__ == "__main__":
-     app.run(host='0.0.0.0', port=80, debug=False)
+    dd_options = {
+        'api_key':os.environ['DD_API_KEY'],
+        'app_key':os.environ['DD_APP_KEY'],
+        'hostname':'jeferaptor'
+    }
+    initialize(**dd_options)
+
+
+    log = logging.getLogger('werkzeug')
+    log.setLevel(logging.ERROR)
+    app = Flask(__name__)
+
+    # DS18B20
+    os.system('modprobe w1-gpio')
+    os.system('modprobe w1-therm')
+    sensor = W1ThermSensor()
+    temperature = None
+    
+    scheduler = BackgroundScheduler()
+    scheduler.start()
+    scheduler.add_job(
+        func=dd_temp_update,
+        trigger=IntervalTrigger(seconds=5),
+        id='dd_temp_update',
+        name='Update temperature on DD every five seconds',
+        replace_existing=True)
+    # Shut down the scheduler when exiting the app
+    atexit.register(lambda: scheduler.shutdown())
+
+    app.run(host='0.0.0.0', port=80, debug=False)
