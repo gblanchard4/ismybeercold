@@ -1,20 +1,7 @@
-FROM  resin/raspberry-pi2-python
+FROM  resin/arm32-datadog-agent
 
 # Set our working directory
 WORKDIR /usr/src/app
-
-ENV DD_API_KEY=setme
-ENV DD_START_AGENT=0
-
-RUN apt-get update && apt-get install -y \
-  curl \
-  python \
-  sysstat \
-  wget \
-  && wget https://raw.githubusercontent.com/DataDog/dd-agent/master/packaging/datadog-agent/source/setup_agent.sh \
-  && /bin/bash setup_agent.sh \
-  && rm setup_agent.sh
-
 
 # Copy requirements.txt first for better cache on later pushes
 COPY ./requirements.txt /requirements.txt
