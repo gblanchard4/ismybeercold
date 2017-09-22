@@ -12,7 +12,7 @@ dd_options = {
     'api_key':os.environ['DD_API_KEY'],
     'app_key':os.environ['DD_APP_KEY']
 }
-initialize(**options)
+initialize(**dd_options)
 
 
 log = logging.getLogger('werkzeug')
