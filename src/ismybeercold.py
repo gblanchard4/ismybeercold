@@ -42,8 +42,11 @@ def dd_temp_update():
     while True:
         temperature = read_temp()
         print("START: Update DD temperature metric =={}".format(temperature))
-        api.Metric.send(metric='jeferaptor.temperature', points=temperature, type='counter', host='Jeferaptor')
-        sleep(1)
+        try:
+            api.Metric.send(metric='jeferaptor.temperature', points=temperature, type='counter', host='Jeferaptor')
+            sleep(1)
+        except HttpTimeout:
+            pass
 
 
 @app.route("/")
