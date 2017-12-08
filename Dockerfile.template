@@ -1,4 +1,4 @@
-FROM resin/rpi-raspbian:wheezy
+FROM resin/rpi-raspbian:jessie
 
 # switch on systemd init system in container
 ENV INITSYSTEM on
@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install wget
 # alertmanager deps
 RUN apt-get install build-essential libc6-dev
 
-
 # Set our working directory
 WORKDIR /usr/src/app
 
@@ -20,7 +19,8 @@ WORKDIR /usr/src/app
 COPY ./requirements.txt /requirements.txt
 
 # pip install python deps from requirements.txt on the resin.io build server
-RUN pip-3.2 install -r /requirements.txt
+RUN apt-get install pip3
+RUN pip3 install -r /requirements.txt
 
 # This will copy all files in our root to the working  directory in the container
 COPY . ./
@@ -35,9 +35,6 @@ RUN wget https://github.com/prometheus/node_exporter/releases/download/$NODE_EXP
 WORKDIR /
 
 COPY start.sh ./
-
-
-
 
 # main.py will run when container starts up on the device
 CMD ["bash", "start.sh"]
