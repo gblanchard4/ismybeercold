@@ -5,7 +5,7 @@ ENV INITSYSTEM on
 
 # arch
 ENV DIST_ARCH linux-armv7
-ENV NODE_EXPORTER_VERSION v0.15.2
+ENV NODE_EXPORTER_VERSION 0.15.2
 
 # downloading utils
 RUN apt-get update && apt-get install wget
