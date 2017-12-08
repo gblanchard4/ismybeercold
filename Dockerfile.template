@@ -37,5 +37,7 @@ WORKDIR /
 
 COPY start.sh ./
 
+WORKDIR /usr/src/app
+
 # main.py will run when container starts up on the device
 CMD ["bash", "start.sh"]
