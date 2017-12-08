@@ -1,4 +1,17 @@
-FROM resin/%%RESIN_MACHINE_NAME%%-python:3.6.1-wheezy
+FROM resin/rpi-raspbian:wheezy
+
+# switch on systemd init system in container
+ENV INITSYSTEM on
+
+# arch
+ENV DIST_ARCH linux-armv7
+
+# downloading utils
+RUN apt-get update && apt-get install wget
+
+# alertmanager deps
+RUN apt-get install build-essential libc6-dev
+
 
 # Set our working directory
 WORKDIR /usr/src/app
@@ -7,13 +20,24 @@ WORKDIR /usr/src/app
 COPY ./requirements.txt /requirements.txt
 
 # pip install python deps from requirements.txt on the resin.io build server
-RUN pip install -r /requirements.txt
+RUN pip-3.2 install -r /requirements.txt
 
 # This will copy all files in our root to the working  directory in the container
 COPY . ./
 
-# switch on systemd init system in container
-ENV INITSYSTEM on
+WORKDIR /etc
+
+# get node exporter
+RUN wget https://github.com/prometheus/node_exporter/releases/download/$NODE_EXPORTER_VERSION/node_exporter-$NODE_EXPORTER_VERSION.$DIST_ARCH.tar.gz  \
+	&& tar xvfz node_exporter-$NODE_EXPORTER_VERSION.$DIST_ARCH.tar.gz \
+	&& rm node_exporter-$NODE_EXPORTER_VERSION.$DIST_ARCH.tar.gz
+
+WORKDIR /
+
+COPY start.sh ./
+
+
+
 
 # main.py will run when container starts up on the device
-CMD ["python","src/ismybeercold.py"]
+CMD ["bash", "start.sh"]
