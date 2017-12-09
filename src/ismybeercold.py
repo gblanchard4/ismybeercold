@@ -30,7 +30,6 @@ def read_temp():
     temperature = sensor.get_temperature(W1ThermSensor.DEGREES_F)
     temperature = "{0:.2f}".format(temperature)
     temperature = float(temperature)
-    g.set(temperature)
     return temperature
 
 @app.route("/")
@@ -44,6 +43,7 @@ def ismybeercold():
 def jsondata():
     uptime_var = int(uptime())
     temp = read_temp()
+    g.set(temp)
     tempString = str(temp)
     if temp >= 60.0:
         saying = "Oh Shit, That Beer Is Hot!"
