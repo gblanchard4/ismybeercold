@@ -5,3 +5,4 @@ psutil
 w1thermsensor
 uptime
 flask_prometheus
+prometheus_client
