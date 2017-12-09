@@ -3,5 +3,5 @@ adafruit-io
 Flask
 psutil
 w1thermsensor
-datadog
 uptime
+flask_prometheus
