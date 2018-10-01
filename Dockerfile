@@ -28,11 +28,6 @@ COPY . ./
 
 WORKDIR /etc
 
-# get node exporter
-RUN wget https://github.com/prometheus/node_exporter/releases/download/v$NODE_EXPORTER_VERSION/node_exporter-$NODE_EXPORTER_VERSION.$DIST_ARCH.tar.gz  \
-	&& tar xvfz node_exporter-$NODE_EXPORTER_VERSION.$DIST_ARCH.tar.gz \
-	&& rm node_exporter-$NODE_EXPORTER_VERSION.$DIST_ARCH.tar.gz
-
 WORKDIR /
 
 COPY start.sh ./
