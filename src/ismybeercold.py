@@ -3,14 +3,9 @@ import datetime
 import psutil
 import logging
 import os
-from flask import Flask, render_template, request, jsonify
-from time import sleep
-from multiprocessing import Process, Value
+from flask import Flask, render_template, jsonify
 from w1thermsensor import W1ThermSensor
-from subprocess import check_output
 from uptime import uptime
-from prometheus_client import start_http_server, Summary, Counter, Gauge
-
 
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -22,9 +17,6 @@ os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
 sensor = W1ThermSensor()
 temperature = None
-c = Counter('page_view', 'Number of Pageviews')
-g = Gauge('temperature', 'Temperature')
-
 
 def read_temp():
     temperature = sensor.get_temperature(W1ThermSensor.DEGREES_F)
@@ -35,7 +27,6 @@ def read_temp():
 @app.route("/")
 def ismybeercold():
     global page_views
-    c.inc()
     print("page_views incremented")
     return render_template('index.html', title="ISMYBEERCOLD?")
 
@@ -43,7 +34,6 @@ def ismybeercold():
 def jsondata():
     uptime_var = int(uptime())
     temp = read_temp()
-    g.set(temp)
     tempString = str(temp)
     if temp >= 60.0:
         saying = "Oh Shit, That Beer Is Hot!"
@@ -56,6 +46,4 @@ def jsondata():
 
 
 if __name__ == "__main__":
-    start_http_server(8000)
     app.run(host='0.0.0.0', port=80, debug=False)
-    dd_process.join()
