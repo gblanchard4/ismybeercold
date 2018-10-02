@@ -1,8 +1,5 @@
 RPi.GPIO
-adafruit-io
 Flask
 psutil
 w1thermsensor
 uptime
-flask_prometheus
-prometheus_client
