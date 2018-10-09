@@ -1,10 +1,7 @@
-FROM resin/raspberry-pi2-python:3.6.1-slim
+FROM resin/raspberry-pi2-python:3.6.1
 
 # Enable systemd
 ENV INITSYSTEM on
-
-# downloading utils
-RUN apt-get update && apt-get install wget
 
 # Set our working directory
 WORKDIR /usr/src/app
