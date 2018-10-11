@@ -12,6 +12,38 @@
     <link rel="stylesheet" href="static/css/main.css" />
     <noscript><link rel="stylesheet" href="static/css/noscript.css" /></noscript>
   </head>
+  <script type=text/javascript>
+  $(function temp(){
+      $.getJSON($SCRIPT_ROOT+"/_jsondata", function(data) {
+        $("#temp").text(data.temp);setTimeout(function(){temp();},500);
+      });
+    });
+    $(function uptime(){
+        $.getJSON($SCRIPT_ROOT+"/_jsondata", function(data) {
+          $("#uptime").text(data.uptime);setTimeout(function(){uptime();},500);
+        });
+    });
+    $(function time(){
+          $.getJSON($SCRIPT_ROOT+"/_jsondata", function(data) {
+            $("#time").text(data.time);setTimeout(function(){time();},500);
+          });
+    });
+    $(function cpu(){
+          $.getJSON($SCRIPT_ROOT+"/_jsondata", function(data) {
+            $("#cpu").text(data.cpu);setTimeout(function(){cpu();},500);
+          });
+    });
+    $(function ram(){
+          $.getJSON($SCRIPT_ROOT+"/_jsondata", function(data) {
+            $("#ram").text(data.ram);setTimeout(function(){ram();},500);
+          });
+    });
+    $(function saying(){
+          $.getJSON($SCRIPT_ROOT+"/_jsondata", function(data) {
+            $("#saying").text(data.saying);setTimeout(function(){saying();},500);
+          });
+    });
+  </script>
   <body class="is-preload">
 
     <!-- Wrapper -->
@@ -31,10 +63,10 @@
             </div>
             <nav>
               <ul>
-                <li><span id="temp"></span></li>
-                <li><span id="cpu"></span></li>
-                <li><span id="ram"></span></li>
-                <li><span id="uptime"></span></li>
+                <li>Temp: <span id="temp"></span></li>
+                <li>CPU: <span id="cpu"></span></li>
+                <li>RAM: <span id="ram"></span></li>
+                <li>Uptime: <span id="uptime"></span></li>
                 <!--<li><a href="#elements">Elements</a></li>-->
               </ul>
             </nav>
@@ -96,45 +128,6 @@
                   <li><a href="#" class="icon fa-github"><span class="label">GitHub</span></a></li>
                 </ul>
               </article>
-
-              <script type=text/javascript>
-              $(function temp(){
-                  $.getJSON($SCRIPT_ROOT+"/_jsondata", function(data) {
-                    $("#temp").text(data.temp);setTimeout(function(){temp();},500);
-                  });
-                });
-                $(function uptime(){
-                    $.getJSON($SCRIPT_ROOT+"/_jsondata", function(data) {
-                      $("#uptime").text(data.uptime);setTimeout(function(){uptime();},500);
-                    });
-                });
-                $(function time(){
-                      $.getJSON($SCRIPT_ROOT+"/_jsondata", function(data) {
-                        $("#time").text(data.time);setTimeout(function(){time();},500);
-                      });
-                });
-                $(function cpu(){
-                      $.getJSON($SCRIPT_ROOT+"/_jsondata", function(data) {
-                        $("#cpu").text(data.cpu);setTimeout(function(){cpu();},500);
-                      });
-                });
-                $(function ram(){
-                      $.getJSON($SCRIPT_ROOT+"/_jsondata", function(data) {
-                        $("#ram").text(data.ram);setTimeout(function(){ram();},500);
-                      });
-                });
-                $(function saying(){
-                      $.getJSON($SCRIPT_ROOT+"/_jsondata", function(data) {
-                        $("#saying").text(data.saying);setTimeout(function(){saying();},500);
-                      });
-                });
-              </script>
-
-
-
-
-
-
             <!-- Elements -->
               <article id="elements">
                 <h2 class="major">Elements</h2>
