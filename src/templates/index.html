@@ -11,6 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="static/css/main.css" />
     <noscript><link rel="stylesheet" href="static/css/noscript.css" /></noscript>
+    <script type=text/javascript>
+      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
   </head>
   <script type=text/javascript>
   $(function temp(){
@@ -63,10 +66,10 @@
             </div>
             <nav>
               <ul>
-                <li>Temp: <span id="temp"></span></li>
-                <li>CPU: <span id="cpu"></span></li>
-                <li>RAM: <span id="ram"></span></li>
-                <li>Uptime: <span id="uptime"></span></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
                 <!--<li><a href="#elements">Elements</a></li>-->
               </ul>
             </nav>
