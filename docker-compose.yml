@@ -5,8 +5,6 @@ services:
     build:
       context: ./src
       dockerfile: Dockerfile
-    volumes:
-      - "./src/:/app"
     privileged: true
   nginx:
     image: webapp-nginx
