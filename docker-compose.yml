@@ -16,7 +16,7 @@ services:
       context: ./nginx
       dockerfile: Dockerfile
     ports:
-      - 5000:80
+      - 80:5000
     depends_on:
       - flask
     privileged: true
