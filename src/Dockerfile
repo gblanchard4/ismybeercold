@@ -21,4 +21,4 @@ RUN pip3 install -r /requirements.txt
 COPY . $APP
 
 # Start uwsgi
-CMD ["uwsgi", "--ini" "app.ini"]
+ENTRYPOINT ["uwsgi", "--ini" "app.ini"]
