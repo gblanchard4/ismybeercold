@@ -7,14 +7,14 @@ services:
       dockerfile: Dockerfile
     privileged: true
     restart: always
-  nginx:
-    image: ismybeercold-nginx
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    ports:
-      - 8080:80
-    depends_on:
-      - flask
-    privileged: true
-    restart: always
+  # nginx:
+  #   image: ismybeercold-nginx
+  #   build:
+  #     context: ./nginx
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 8080:80
+  #   depends_on:
+  #     - flask
+  #   privileged: true
+  #   restart: always
