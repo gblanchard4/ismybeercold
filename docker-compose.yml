@@ -10,7 +10,6 @@ services:
     network_mode: host
     labels:
       io.resin.features.kernel-modules: '1'
-
   nginx:
     image: ismybeercold-nginx
     build:
