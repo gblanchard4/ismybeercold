@@ -1,5 +1,6 @@
-RPi.GPIO
 Flask
 psutil
-w1thermsensor
+RPi.GPIO
 uptime
+uwsgi
+w1thermsensor
