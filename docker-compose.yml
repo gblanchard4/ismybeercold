@@ -1,14 +1,14 @@
 version: '2'
 services:
   flask:
-    image: webapp-flask
+    image: ismybeercold-flask
     build:
       context: ./src
       dockerfile: Dockerfile
     privileged: true
     restart: always
   nginx:
-    image: webapp-nginx
+    image: ismybeercold-nginx
     build:
       context: ./nginx
       dockerfile: Dockerfile
