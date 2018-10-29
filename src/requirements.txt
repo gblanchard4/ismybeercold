@@ -1,0 +1,6 @@
+Flask
+psutil
+RPi.GPIO
+uptime
+uwsgi
+w1thermsensor

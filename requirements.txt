@@ -1,5 +1,0 @@
-RPi.GPIO
-Flask
-psutil
-w1thermsensor
-uptime
