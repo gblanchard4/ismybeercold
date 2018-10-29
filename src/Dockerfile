@@ -11,7 +11,7 @@ RUN mkdir $APP
 WORKDIR $APP
 
 # uWSGI Port
-EXPOSE 8080
+EXPOSE 5000
 
 # Copy requirements.txt first for better cache on later pushes
 COPY ./requirements.txt /requirements.txt
